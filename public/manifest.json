@@ -1,13 +1,13 @@
 {
   "manifestVersion": 1,
-  "id": "plugin_template",
-  "name": "Plugin Template",
-  "author": "remnote",
-  "repoUrl": "",
+  "id": "remnote_todoist_plugin",
+  "name": "Todoist",
+  "author": "Youri Lieverdink",
+  "repoUrl": "https://github.com/YouriLieverdink/remnote_todoist_plugin",
   "version": {
     "major": 0,
-    "minor": 0,
-    "patch": 1
+    "minor": 1,
+    "patch": 0
   },
   "theme": [],
   "enableOnMobile": false,
