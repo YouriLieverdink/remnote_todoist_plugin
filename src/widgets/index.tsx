@@ -1,15 +1,8 @@
 import { declareIndexPlugin, ReactRNPlugin, WidgetLocation } from '@remnote/plugin-sdk';
-import '../style.css';
 import '../App.css';
+import '../style.css';
 
 async function onActivate(plugin: ReactRNPlugin) {
-  await plugin.settings.registerStringSetting({
-    id: 'todoist_api_key',
-    title: 'Todoist Api key',
-    description: 'In Todoist, go to Settings > Integrations > Developer',
-    defaultValue: '',
-  });
-
   await plugin.app.registerWidget('todoist_index', WidgetLocation.RightSidebar, {
     dimensions: {
       height: 'auto',

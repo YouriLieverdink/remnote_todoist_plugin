@@ -1,23 +1,12 @@
-import { Task } from '@doist/todoist-api-typescript';
-import { renderWidget, useTracker } from '@remnote/plugin-sdk';
-import { useState } from 'react';
-import { getApi } from '../helpers';
+import { renderWidget } from '@remnote/plugin-sdk';
 
 export const TodoistIndex = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-
-  useTracker(async (plugin) => {
-    const api = await getApi(plugin);
-    const data = await api.getTasks({ filter: 'today' });
-
-    setTasks(data);
-  });
-
   return (
     <div>
-      {tasks.map((task) => {
-        return <p>{task.content}</p>;
-      })}
+      <iframe
+        src="https://todoist.com/app"
+        style={{ height: '100%', width: '100%', border: 'none' }}
+      ></iframe>
     </div>
   );
 };
