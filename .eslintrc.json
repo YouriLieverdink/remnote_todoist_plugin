@@ -1,0 +1,36 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "parser": "@typescript-eslint/parser",
+    "extraFileExtensions": [".tsx", ".ts"]
+  },
+
+  "rules": {
+    // Formatting
+    "indent": ["warn", 2, {"SwitchCase": 1}],
+    "comma-dangle": ["warn", "never"],
+    "array-bracket-spacing": ["warn", "never"],
+    "space-before-blocks": ["warn", "always"],
+    "arrow-spacing": ["warn"],
+    "quotes": ["warn", "single"],
+    "object-curly-spacing": "warn",
+    "quote-props": ["error", "as-needed"],
+
+    // Ensure code stays simple
+    "complexity": ["error", 5],
+    "max-depth": ["error", 4],
+    "max-statements-per-line": ["error", {"max": 2}],
+    "yoda": "warn",
+
+    // React
+    "react/react-in-jsx-scope": ["off"]
+  }
+}
