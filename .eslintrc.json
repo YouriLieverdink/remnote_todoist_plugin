@@ -23,6 +23,7 @@
     "quotes": ["warn", "single"],
     "object-curly-spacing": "warn",
     "quote-props": ["error", "as-needed"],
+    "function-paren-newline": ["warn", "multiline-arguments"],
 
     // Ensure code stays simple
     "complexity": ["error", 5],

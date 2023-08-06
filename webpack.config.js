@@ -1,10 +1,10 @@
-const { resolve } = require('path');
+const {resolve} = require('path');
 var glob = require('glob');
 var path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { ESBuildMinifyPlugin } = require('esbuild-loader');
-const { ProvidePlugin, BannerPlugin } = require('webpack');
+const {ESBuildMinifyPlugin} = require('esbuild-loader');
+const {ProvidePlugin, BannerPlugin} = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
@@ -27,11 +27,11 @@ const config = {
 
   output: {
     path: resolve(__dirname, 'dist'),
-    filename: `[name].js`,
-    publicPath: '',
+    filename: '[name].js',
+    publicPath: ''
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
   module: {
     rules: [
@@ -41,22 +41,22 @@ const config = {
         options: {
           loader: 'tsx',
           target: 'es2020',
-          minify: false,
-        },
+          minify: false
+        }
       },
       {
         test: /\.css$/i,
         use: [
-          isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { url: false } },
-          'postcss-loader',
-        ],
-      },
-    ],
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {loader: 'css-loader', options: {url: false}},
+          'postcss-loader'
+        ]
+      }
+    ]
   },
   plugins: [
     isDevelopment ? undefined : new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: '[name].css'
     }),
     new HtmlWebpackPlugin({
       templateContent: `
@@ -74,17 +74,17 @@ const config = {
       </script>
     `,
       filename: 'index.html',
-      inject: false,
+      inject: false
     }),
     new ProvidePlugin({
       React: 'react',
-      reactDOM: 'react-dom',
+      reactDOM: 'react-dom'
     }),
     new BannerPlugin({
       banner: (file) => {
         return !file.chunk.name.includes(SANDBOX_SUFFIX) ? 'const IMPORT_META=import.meta;' : '';
       },
-      raw: true,
+      raw: true
     }),
     new CopyPlugin({
       patterns: [
@@ -92,14 +92,14 @@ const config = {
         {from: 'README.md', to: ''}
       ]
     }),
-    fastRefresh,
-  ].filter(Boolean),
+    fastRefresh
+  ].filter(Boolean)
 };
 
 if (isProd) {
   config.optimization = {
     minimize: isProd,
-    minimizer: [new ESBuildMinifyPlugin()],
+    minimizer: [new ESBuildMinifyPlugin()]
   };
 } else {
   // for more information, see https://webpack.js.org/configuration/dev-server
@@ -110,8 +110,8 @@ if (isProd) {
     compress: true,
     watchFiles: ['src/*'],
     headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
+      'Access-Control-Allow-Origin': '*'
+    }
   };
 }
 
