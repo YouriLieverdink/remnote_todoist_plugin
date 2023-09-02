@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import {Task, TodoistRequestError} from '@doist/todoist-api-typescript';
+import {Task} from '@doist/todoist-api-typescript';
 import {
   AppEvents,
   WidgetLocation,
@@ -46,15 +46,27 @@ export const todoistWidget = () => {
         setTasks(tasks);
       }
     } catch (e) {
-      if (e instanceof TodoistRequestError) {
-        setStatus(e.message);
-      }
+      setStatus('An error occurred while fetching the tasks from Todoist');
+      setTasks([]);
 
       console.error(e);
     }
   };
 
   const closeTask = async (task: Task) => {
+    setTasks(
+      tasks.map((a) => {
+        if (a.id === task.id) {
+          return {
+            ...task,
+            isCompleted: true
+          };
+        }
+
+        return a;
+      })
+    );
+
     try {
       // Close the task
       await todoist?.closeTask(task.id);
@@ -62,6 +74,19 @@ export const todoistWidget = () => {
       // Remove from local state.
       setTasks(tasks.filter((a) => a.id !== task.id));
     } catch (e) {
+      setTasks(
+        tasks.map((a) => {
+          if (a.id === task.id) {
+            return {
+              ...task,
+              isCompleted: false
+            };
+          }
+
+          return a;
+        })
+      );
+
       console.error(e);
     }
   };
@@ -76,21 +101,33 @@ export const todoistWidget = () => {
   render();
 
   if (tasks.length === 0) {
-    return <div>{status}</div>;
+    return <div className="text-center p-5">
+      ✅ {status}
+    </div>;
   }
 
   return (
     <ul>
       {tasks.map((task) => {
         return (
-          <li key={task.id}>
+          <li key={task.id} className="p-1">
             <input
               type="checkbox"
               id={task.id}
               checked={task.isCompleted}
               onChange={() => closeTask(task)}
+              style={{cursor: 'pointer'}}
             />
-            <label htmlFor={task.id}>{task.content}</label>
+            <label className="ml-1">
+              <button
+                role="link"
+                onClick={() => window.open(task.url, '_blank', 'noreferrer')}
+              >
+                {task.content}
+              </button>
+            </label>
+            <br />
+            <div className="ml-5"></div>
           </li>
         );
       })}
