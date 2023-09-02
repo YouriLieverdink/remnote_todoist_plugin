@@ -126,8 +126,6 @@ export const todoistWidget = () => {
                 {task.content}
               </button>
             </label>
-            <br />
-            <div className="ml-5"></div>
           </li>
         );
       })}
